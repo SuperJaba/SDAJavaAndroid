@@ -1,25 +1,26 @@
 package pl.sda.mvc.controller;
 
+import impl.FibonacciIterational;
+import pl.sda.fibonacci.Fibonacci;
 import pl.sda.mvc.model.Model;
+import pl.sda.mvc.model.ModelFacade;
 
 import java.util.List;
-import java.util.Random;
 
 public class Controller {
 
-    public int getFibValue(int n) {
-        Random random = new Random();
-        int val = random.nextInt(20000);
-        Model.addValue(val);
+    public long getFibValue(int n) {
+        Fibonacci fibonacci = new FibonacciIterational() ;
+        long val = fibonacci.getNWalue(n);
+        ModelFacade.addNewValueThroughFacade(val);
         return val;
-    }
+        }
 
     public double average() {
         double sum = 0;
+        List<Long> values = ModelFacade.getValuesTroughFacade();
 
-        List<Integer> values = Model.getValues();
-
-        for (int val : values) {
+        for (long val : values) {
             sum = sum + val;
         }
         return sum / values.size();
